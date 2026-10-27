@@ -1,0 +1,5 @@
+.site-update{position:fixed;z-index:60;right:1.25rem;bottom:1.25rem;width:min(35rem,calc(100% - 2.5rem));padding:1.25rem;border:1px solid #9385ad;border-radius:0.75rem;background:#f3effa;color:#262238}
+.site-update p{font-size:1.0625rem;line-height:1.5;margin:0 0 0.875rem}
+.site-update button{font-size:1rem}
+.site-update .text-button{margin-left:1rem}
+@media print{.site-update{display:none}}
