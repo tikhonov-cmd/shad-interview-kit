@@ -15,6 +15,12 @@ for (const route of kit.routes) {
   assert.equal((html.match(/data-probe-group=/g) || []).length, 2);
   assert.equal((html.match(new RegExp(`data-probe-group="${route.group}"`, 'g')) || []).length, 2);
   assert.equal((html.match(/class="material-heading"/g) || []).length, 2);
+  assert.equal((html.match(/class="question-transition"/g) || []).length, 1);
+  assert.equal((html.match(/class="optional-module improvement-module"/g) || []).length, 1);
+  const numbers = [...html.matchAll(/class="question-number">([^<]+)</g)].map(m => m[1]);
+  assert.equal(new Set(numbers).size, numbers.length, 'Question numbers must be unique within the route');
+  assert(numbers.includes('1.3'), 'Every group needs its own environment question after the baseline');
+  assert(html.indexOf('improvement-module') < html.indexOf('В самом конце: широкий охват'), 'Reach scenario must come after the optional improvement');
   assert(html.includes(kit.publicUrl + '?items=' + route.first + ',' + route.second));
 }
 for (const group of ['G1', 'G2', 'G3', 'G4']) {

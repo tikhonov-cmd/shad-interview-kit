@@ -94,3 +94,9 @@
  .interview-page .guide-section{padding:1.25rem 0 1.5rem}
  .interview-page .section-title,.interview-page .guide-column #block-1 .section-title{margin-bottom:1.25rem}
 }
+
+/* Spoken bridge stays with its question; timing is part of the route, not an extra block. */
+.question-transition{margin:0 0 .5rem;font-size:1em;line-height:1.5;color:var(--muted);max-width:72ch}
+.guide-duration:has(+.guide-timing){margin-bottom:.75rem}
+.guide-timing{margin:0 0 1.5rem;max-width:74ch}
+.improvement-module .questions{margin-top:1rem}

@@ -24,6 +24,10 @@ def build():
     materials = {m['id'] for m in kit['materials']}
     for route in kit['routes']:
         assert route['first'] in materials and route['second'] in materials
+        guide = kit['guides'][route['group']]
+        pair = next(p for p in kit['pairs'] if p['id'] == route['pair'])
+        total = sum(guide['times']) - guide['times'][5] + pair['minutes'] + guide['reserveMinutes']
+        assert total == route['duration'], f'Timing mismatch: {route["id"]}'
     for material in kit['materials']:
         for group in ('G1', 'G2', 'G3', 'G4'):
             assert len(material['researchProbesByGroup'][group]) == 6
