@@ -26,7 +26,7 @@
       const button = document.createElement('button');
       button.type = 'button';
       button.className = 'secondary';
-      button.textContent = 'Обновить после интервью';
+      button.textContent = 'Обновить сейчас';
       button.addEventListener('click', () => {
         const next = new URL(location.href);
         next.searchParams.set('revision', latest.version);
