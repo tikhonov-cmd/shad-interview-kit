@@ -79,7 +79,7 @@ function participantScenario(query) {
   const messages = [];
   nodes.material.contentWindow = {postMessage: data => messages.push(data)};
   vm.runInNewContext(read('site/student/assets/viewer.js'), {
-    URLSearchParams, location:{search:query}, scrollTo() {},
+    URLSearchParams, innerHeight:850, location:{search:query}, scrollTo() {},
     document:{documentElement:{dataset:{theme:'dark'}}, getElementById:id => nodes[id],
       addEventListener:(name, handler) => documentEvents[name] = handler},
     addEventListener:(name, handler) => events[name] = handler

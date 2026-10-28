@@ -63,7 +63,7 @@ def build():
                               lambda m: '<body class="student-page ' + (m[1] or '') + '">'
                               '<a class="skip" href="#student-main">К материалу</a>'
                               '<header class="site-header"><div class="header-inner">'
-                              '<div class="brand">Исследование ШАД</div></div></header>', text)
+                              '</div></header>', text)
                 text = text.replace('<main ', '<main id="student-main" ')
                 if path.parent.name == 'materials':
                     text = text.replace('<main id="student-main" class="narrow">',

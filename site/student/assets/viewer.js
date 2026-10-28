@@ -4,9 +4,10 @@ let items = [], pos = 0;
 const frame = document.getElementById('material');
 const progress = document.getElementById('progress');
 function syncTheme() {
-  frame.contentWindow?.postMessage({type:'shad-theme', theme:document.documentElement.dataset.theme}, '*');
+  frame.contentWindow?.postMessage({type:'shad-theme', theme:document.documentElement.dataset.theme, viewportHeight:innerHeight}, '*');
 }
 frame.addEventListener('load', syncTheme);
+addEventListener('resize', syncTheme);
 document.addEventListener('shad-theme-change', syncTheme);
 function render(focus = false) {
   frame.style.height = '';

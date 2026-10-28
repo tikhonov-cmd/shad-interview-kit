@@ -1,8 +1,9 @@
 /* Participant shell shares the interviewer's typography, palette and theme controls. */
 :root{font-size:16px}
 body{background:var(--paper);color:var(--ink);line-height:1.55}
-.student-page .header-inner{max-width:60rem;min-height:4.5rem;padding:0 1.5rem;gap:1rem}
-.student-page .brand{font-size:1.5rem;letter-spacing:-.025em}
+.student-page .header-inner{max-width:56rem;min-height:3.5rem;padding:0 1.5rem;gap:1rem}
+.student-page button.theme-toggle{font-size:.8125rem;min-height:2rem;padding:.375rem .625rem;gap:.375rem;border-radius:.5rem}
+.student-page .theme-toggle svg{width:1rem;height:1rem}
 .student-page main{max-width:56rem;margin:0 auto;padding:2rem 1.5rem 3rem}
 .student-page h1{font-size:2rem;line-height:1.25;margin:0 0 1rem}
 .student-page h2{font-size:1.5rem;margin:2rem 0 .75rem}
@@ -51,8 +52,7 @@ body{background:var(--paper);color:var(--ink);line-height:1.55}
 [data-embedded=true] .student-page main{padding:0;max-width:none}
 @media screen{[data-theme=dark] .student-page .error{color:#f0a99c}}
 @media(max-width:760px){
- .student-page .header-inner{padding:.75rem 1rem;min-height:4rem;flex-wrap:nowrap}
- .student-page .brand{font-size:1.25rem}
+ .student-page .header-inner{padding:.5rem 1rem;min-height:3.5rem;flex-wrap:nowrap}
  .student-page main{padding:1.5rem 1rem 2rem}
  .student-page h1{font-size:1.625rem}
  .student-page #entry{margin:1rem 0}
@@ -70,3 +70,7 @@ body{background:var(--paper);color:var(--ink);line-height:1.55}
 @media screen{
  .student-page button:disabled,.student-page button:disabled:hover{background:var(--lavender);color:var(--muted);border:1px solid var(--line);cursor:default}
 }
+
+@media(pointer:coarse){.student-page button.theme-toggle{min-height:2.75rem}}
+
+[data-embedded=true] .material-page video{max-height:calc(var(--viewer-height, 900px) * .75)}
