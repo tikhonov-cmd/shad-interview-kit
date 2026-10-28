@@ -66,3 +66,61 @@ async function updateScenario(latest, failure = false) {
   assert.equal(deferred.navigations.length, 0);
   console.log('32 routes, 4 groups and non-interrupting update notifications verified.');
 })().catch(error => {console.error(error.message); process.exitCode = 1;});
+
+// Participant navigation must preserve the assigned order and never reveal other materials.
+function participantScenario(query) {
+  const events = {}, documentEvents = {}, nodes = {};
+  for (const id of ['material','progress','prev','next','solo','last','material-code','entry','session','error','code','open']) {
+    nodes[id] = {style:{}, events:{}, hidden:false, value:'',
+      addEventListener(name, handler) {this.events[name] = handler;},
+      setAttribute(name, value) {this[name] = value;},
+      removeAttribute(name) {delete this[name];}, focus() {this.focused = true;}};
+  }
+  const messages = [];
+  nodes.material.contentWindow = {postMessage: data => messages.push(data)};
+  vm.runInNewContext(read('site/student/assets/viewer.js'), {
+    URLSearchParams, location:{search:query}, scrollTo() {},
+    document:{documentElement:{dataset:{theme:'dark'}}, getElementById:id => nodes[id],
+      addEventListener:(name, handler) => documentEvents[name] = handler},
+    addEventListener:(name, handler) => events[name] = handler
+  });
+  return {nodes, events, documentEvents, messages};
+}
+for (const route of kit.routes) {
+  const {nodes, events, documentEvents, messages} = participantScenario('?items=' + route.first + ',' + route.second);
+  assert.equal(nodes.material.src, 'materials/' + route.first + '.html');
+  assert.equal(nodes.prev.disabled, true);
+  nodes.next.onclick();
+  assert.equal(nodes.material.src, 'materials/' + route.second + '.html');
+  assert.equal(nodes.next.disabled, true);
+  assert.equal(nodes.last.hidden, false);
+  nodes.prev.onclick();
+  assert.equal(nodes.material.src, 'materials/' + route.first + '.html');
+  assert.equal(nodes.last.hidden, true);
+  events.message({source:{}, data:{type:'shad-height',height:9000}});
+  assert.equal(nodes.material.style.height, '');
+  events.message({source:nodes.material.contentWindow,data:{type:'shad-height',height:1600}});
+  assert.equal(nodes.material.style.height, '1602px');
+  events.message({source:nodes.material.contentWindow,data:{type:'shad-height',height:300}});
+  assert.equal(nodes.material.style.height, '302px');
+  documentEvents['shad-theme-change']();
+  assert.equal(messages.at(-1).theme, 'dark');
+}
+for (const material of kit.materials) {
+  const {nodes} = participantScenario('?items=' + material.id);
+  assert(nodes.prev.disabled && nodes.next.disabled);
+}
+for (const query of ['?items=m99','?items=m01,m01','?items=m01,m02,m03']) {
+  const {nodes} = participantScenario(query);
+  assert.equal(nodes.session.hidden, true);
+  assert.equal(nodes.code['aria-invalid'], 'true');
+  assert(!nodes.material.src);
+}
+// Standalone materials receive the shared shell without loading interviewer data.
+for (const file of fs.readdirSync(path.join(root, 'dist/student/materials'))) {
+  const html = read('dist/student/materials/' + file);
+  assert(html.includes('../../assets/theme.js?v='));
+  assert(html.includes('class="student-page material-page"'));
+  assert(!html.includes('data.js'));
+}
+console.log('Participant order, single materials, invalid links, resizing and theme forwarding verified.');

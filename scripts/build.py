@@ -48,6 +48,27 @@ def build():
         text = path.read_text()
         text = text.replace('../' + ARCHIVE, 'downloads/' + ARCHIVE)
         if path.suffix == '.html':
+            if 'student' in path.relative_to(OUTPUT).parts:
+                depth = len(path.relative_to(OUTPUT).parts) - 1
+                shared = '../' * depth + 'assets/'
+                local = '../assets/' if path.parent.name == 'materials' else 'assets/'
+                text = re.sub(r'<link rel="stylesheet" href="[^"]*style.css">',
+                              '<link rel="stylesheet" href="' + shared + 'style.css">'
+                              '<link rel="stylesheet" href="' + shared + 'theme.css">'
+                              '<link rel="stylesheet" href="' + local + 'style.css">', text)
+                text = text.replace('<meta charset="utf-8">', '<meta charset="utf-8">'
+                                    '<script src="' + local + 'shell.js"></script>'
+                                    '<script src="' + shared + 'theme.js"></script>')
+                text = re.sub(r'<body(?: class="([^"]*)")?>',
+                              lambda m: '<body class="student-page ' + (m[1] or '') + '">'
+                              '<a class="skip" href="#student-main">К материалу</a>'
+                              '<header class="site-header"><div class="header-inner">'
+                              '<div class="brand">Исследование ШАД</div></div></header>', text)
+                text = text.replace('<main ', '<main id="student-main" ')
+                if path.parent.name == 'materials':
+                    text = text.replace('<main id="student-main" class="narrow">',
+                                        '<main id="student-main" class="narrow">'
+                                        '<h1 class="material-title">Материал ' + path.stem.upper() + '</h1>')
             # Each deployment has fresh CSS/JS URLs, including participant pages.
             text = re.sub(r'((?:src|href)="[^"?]+\.(?:css|js))(?:\?[^"\s]*)?"',
                           lambda m: m[1] + '?v=' + version + '"', text)

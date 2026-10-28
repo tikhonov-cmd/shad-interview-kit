@@ -6,10 +6,12 @@
   let theme = 'light';
   let button;
   try { if (localStorage.getItem(key) === 'dark') theme = 'dark'; } catch {}
+  try { if (parent !== window && parent.document.documentElement.dataset.theme) theme = parent.document.documentElement.dataset.theme; } catch {}
   function apply(next) {
     theme = next === 'dark' ? 'dark' : 'light';
     root.dataset.theme = theme;
     if (button) button.setAttribute('aria-pressed', String(theme === 'dark'));
+    document.dispatchEvent(new CustomEvent('shad-theme-change', {detail: theme}));
   }
   apply(theme);
   document.addEventListener('DOMContentLoaded', () => {
@@ -26,6 +28,9 @@
     });
     header.append(button);
     apply(theme);
+  });
+  addEventListener('message', event => {
+    if (parent !== window && event.source === parent && event.data?.type === 'shad-theme') apply(event.data.theme);
   });
   addEventListener('storage', event => {
     if (event.key === key || event.key === null) apply(event.newValue);
