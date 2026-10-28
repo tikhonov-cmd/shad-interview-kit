@@ -70,7 +70,7 @@ async function updateScenario(latest, failure = false) {
 // Participant navigation must preserve the assigned order and never reveal other materials.
 function participantScenario(query, version = null) {
   const events = {}, documentEvents = {}, nodes = {};
-  for (const id of ['material','progress','prev','next','solo','last','material-code','entry','session','error','code','open']) {
+  for (const id of ['material','progress','prev','next','last','material-code','entry','session','error','code','open']) {
     nodes[id] = {style:{}, events:{}, hidden:false, value:'',
       addEventListener(name, handler) {this.events[name] = handler;},
       setAttribute(name, value) {this[name] = value;},

@@ -18,8 +18,6 @@ function render(focus = false) {
   document.getElementById('material-code').textContent = items[pos].toUpperCase();
   document.getElementById('prev').disabled = pos === 0;
   document.getElementById('next').disabled = pos === items.length - 1;
-  document.getElementById('solo').href = frame.src;
-  document.getElementById('solo').hidden = false;
   document.getElementById('last').hidden = pos !== items.length - 1;
   if (focus) progress.focus({preventScroll:true});
   scrollTo(0, 0);
@@ -30,7 +28,6 @@ function start(raw) {
     document.getElementById('error').textContent = 'Проверьте код материала: например, M01 или M01,M02.';
     document.getElementById('code').setAttribute('aria-invalid', 'true');
     progress.textContent = 'Материалы для беседы';
-    document.getElementById('solo').hidden = true;
     document.getElementById('entry').hidden = false;
     document.getElementById('session').hidden = true;
     frame.removeAttribute('src');
