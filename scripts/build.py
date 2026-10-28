@@ -53,7 +53,8 @@ def build():
                           lambda m: m[1] + '?v=' + version + '"', text)
             if path.parent == OUTPUT:
                 text = text.replace('<head>', '<head><meta name="shad-version" content="' + version + '"><meta name="robots" content="noindex,nofollow">')
-                text = text.replace('</head>', '<link rel="stylesheet" href="assets/updates.css?v=' + version + '"></head>')
+                text = text.replace('<meta charset="utf-8">', '<meta charset="utf-8"><script src="assets/theme.js?v=' + version + '"></script>')
+                text = text.replace('</head>', '<link rel="stylesheet" href="assets/updates.css?v=' + version + '"><link rel="stylesheet" href="assets/theme.css?v=' + version + '"></head>')
                 text = text.replace('</body>', '<script defer src="assets/updates.js?v=' + version + '"></script></body>')
         path.write_text(text)
 
