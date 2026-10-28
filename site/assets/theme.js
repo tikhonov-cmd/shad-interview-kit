@@ -15,7 +15,7 @@
   }
   apply(theme);
   document.addEventListener('DOMContentLoaded', () => {
-    const header = document.querySelector('.header-inner');
+    const header = document.querySelector('[data-theme-control]') || document.querySelector('.header-inner');
     if (!header) return;
     button = document.createElement('button');
     button.type = 'button';

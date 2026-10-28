@@ -61,14 +61,14 @@ def build():
                                     '<script src="' + shared + 'theme.js"></script>')
                 text = re.sub(r'<body(?: class="([^"]*)")?>',
                               lambda m: '<body class="student-page ' + (m[1] or '') + '">'
-                              '<a class="skip" href="#student-main">К материалу</a>'
-                              '<header class="site-header"><div class="header-inner">'
-                              '</div></header>', text)
+                              '<a class="skip" href="#student-main">К материалу</a>', text)
                 text = text.replace('<main ', '<main id="student-main" ')
                 if path.parent.name == 'materials':
                     text = text.replace('<main id="student-main" class="narrow">',
                                         '<main id="student-main" class="narrow">'
-                                        '<h1 class="material-title">Материал ' + path.stem.upper() + '</h1>')
+                                        '<div class="toolbar" data-theme-control><h1 class="material-title">Материал ' + path.stem.upper() + '</h1></div>')
+                elif path.name == 'sources.html':
+                    text = re.sub(r'(<h1>.*?</h1>)', r'<div class="toolbar" data-theme-control>\1</div>', text, count=1)
             # Each deployment has fresh CSS/JS URLs, including participant pages.
             text = re.sub(r'((?:src|href)="[^"?]+\.(?:css|js))(?:\?[^"\s]*)?"',
                           lambda m: m[1] + '?v=' + version + '"', text)

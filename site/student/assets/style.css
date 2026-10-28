@@ -1,7 +1,6 @@
 /* Participant shell shares the interviewer's typography, palette and theme controls. */
 :root{font-size:16px}
 body{background:var(--paper);color:var(--ink);line-height:1.55}
-.student-page .header-inner{max-width:56rem;min-height:3.5rem;padding:0 1.5rem;gap:1rem}
 .student-page button.theme-toggle{font-size:.8125rem;min-height:2rem;padding:.375rem .625rem;gap:.375rem;border-radius:.5rem}
 .student-page .theme-toggle svg{width:1rem;height:1rem}
 .student-page main{max-width:56rem;margin:0 auto;padding:2rem 1.5rem 3rem}
@@ -12,10 +11,11 @@ body{background:var(--paper);color:var(--ink);line-height:1.55}
 .student-page footer{border-top:1px solid var(--line);padding-top:1rem;margin-top:1.5rem}
 .student-page .actions{margin:1rem 0}
 .student-page :is(button,.button){min-height:2.75rem}
-.student-page .toolbar{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:.5rem 1.5rem;margin-bottom:.75rem}
-.student-page .toolbar h1{margin:0}
+.student-page .toolbar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem 1.25rem;margin-bottom:.75rem}
+.student-page .toolbar h1{margin:0 auto 0 0}
+.student-page .toolbar .theme-toggle{margin-left:0}
 .student-page .toolbar>a{display:inline-flex;align-items:center;min-height:2.75rem;font-size:.875rem}
-.student-page #entry{max-width:38rem;margin:1.5rem 0}
+.student-page #entry{max-width:38rem;margin:0}
 .student-page #entry>p{max-width:44ch;color:var(--muted)}
 .student-page form{max-width:26rem;margin-top:1.5rem}
 .student-page label{display:block;font-weight:500;margin-bottom:.5rem}
@@ -48,14 +48,12 @@ body{background:var(--paper);color:var(--ink);line-height:1.55}
 .student-page .post .source strong{color:#222}
 .student-page .post ::selection{background:#ded2f5;color:#29203f}
 .student-page .source-card dl{margin:1.5rem 0}
-[data-embedded=true] .student-page>.site-header,[data-embedded=true] .student-page>.skip,[data-embedded=true] .material-title{display:none}
+[data-embedded=true] .student-page .toolbar,[data-embedded=true] .student-page>.skip,[data-embedded=true] .material-title{display:none}
 [data-embedded=true] .student-page main{padding:0;max-width:none}
 @media screen{[data-theme=dark] .student-page .error{color:#f0a99c}}
 @media(max-width:760px){
- .student-page .header-inner{padding:.5rem 1rem;min-height:3.5rem;flex-wrap:nowrap}
  .student-page main{padding:1.5rem 1rem 2rem}
  .student-page h1{font-size:1.625rem}
- .student-page #entry{margin:1rem 0}
  .student-page .viewer-controls{gap:.5rem}
  .student-page .viewer-controls button{padding:.625rem .75rem;font-size:.875rem}
  .student-page .post{padding:1.125rem;font-size:17px}
@@ -74,3 +72,5 @@ body{background:var(--paper);color:var(--ink);line-height:1.55}
 @media(pointer:coarse){.student-page button.theme-toggle{min-height:2.75rem}}
 
 [data-embedded=true] .material-page video{max-height:calc(var(--viewer-height, 900px) * .75)}
+
+@media(max-width:600px){.student-page .toolbar h1{flex-basis:100%}.student-page .toolbar #solo{margin-right:auto}.student-page .toolbar .theme-toggle{margin-left:auto}}
