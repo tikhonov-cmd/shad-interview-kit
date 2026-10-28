@@ -72,3 +72,11 @@ body{background:var(--paper);color:var(--ink);line-height:1.55}
 
 [data-embedded=true] .material-page video{max-height:calc(var(--viewer-height, 900px) * .75)}
 
+/* Desktop posts use a compact reading measure; artwork stays fully visible. */
+@media(min-width:601px){
+ .student-page .post{max-width:40rem;padding:1.25rem;font-size:16px;line-height:1.5}
+ .student-page .post p{margin:.75rem 0;line-height:1.5}
+ .student-page .post img{width:auto;max-width:100%;max-height:20rem;object-fit:contain;margin-inline:auto}
+ .student-page .post .source{font-size:14px;margin-bottom:.875rem}
+ .student-page .post blockquote{margin:1rem 0}
+}
