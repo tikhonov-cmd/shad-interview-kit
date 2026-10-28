@@ -68,3 +68,29 @@
 .pair-grid .material-name h3{font-size:1.3125rem}
 @media(max-width:760px){.material-heading{gap:0.5rem 1rem;margin-top:1.5rem}.material-name{flex-basis:100%}.material-name h2,.material-name h3{font-size:1.3125rem}.material-format{font-size:0.8125rem}.material-open{font-size:0.8125rem}}
 @media print{.material-heading{break-after:avoid}.material-name h2,.material-name h3{font-size:12pt}.material-format{font-size:9pt}.material-open{display:none}}
+
+/* Keep questions easy to scan, with tighter follow-ups and clear section breaks. */
+@media screen{
+ .questions>li{margin-bottom:1.5rem}
+ .interview-page .questions>li{margin-bottom:1.75rem}
+ .question-heading,.interview-page .question-heading{margin-bottom:0.5rem}
+ .probes,.interview-page .probes{margin-top:0.375rem}
+ .probes>li,.interview-page .probes>li{margin-top:0.25rem;margin-bottom:0.25rem}
+ .interview-page .guide-section{padding:1.5rem 0 1.75rem}
+ .interview-page .section-title,.interview-page .guide-column #block-1 .section-title{margin-bottom:1.375rem}
+ .subsection-label{margin-top:1.75rem;margin-bottom:1rem}
+ .probe-list>li{margin-bottom:1.125rem}
+ .probe-condition{margin-bottom:0.375rem}
+ .probe-question{margin-bottom:0.5rem}
+ .probe-context{margin-bottom:1rem}
+ .probe-content h4{margin:1rem 0 0.75rem}
+ .extra-probes{margin-top:1.125rem;padding-top:0.75rem}
+ .extra-probes[open]>summary{margin-bottom:1rem}
+}
+@media screen and (min-width:1401px){.interview-page .questions>li{margin-bottom:2.25rem}}
+@media screen and (max-width:760px){
+ .interview-page .questions>li{margin-bottom:1.5rem}
+ .interview-page .question-heading{margin-bottom:0.375rem}
+ .interview-page .guide-section{padding:1.25rem 0 1.5rem}
+ .interview-page .section-title,.interview-page .guide-column #block-1 .section-title{margin-bottom:1.25rem}
+}
