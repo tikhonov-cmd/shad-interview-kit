@@ -68,7 +68,7 @@ async function updateScenario(latest, failure = false) {
 })().catch(error => {console.error(error.message); process.exitCode = 1;});
 
 // Participant navigation must preserve the assigned order and never reveal other materials.
-function participantScenario(query) {
+function participantScenario(query, version = null) {
   const events = {}, documentEvents = {}, nodes = {};
   for (const id of ['material','progress','prev','next','solo','last','material-code','entry','session','error','code','open']) {
     nodes[id] = {style:{}, events:{}, hidden:false, value:'',
@@ -80,7 +80,7 @@ function participantScenario(query) {
   nodes.material.contentWindow = {postMessage: data => messages.push(data)};
   vm.runInNewContext(read('site/student/assets/viewer.js'), {
     URLSearchParams, innerHeight:850, location:{search:query}, scrollTo() {},
-    document:{documentElement:{dataset:{theme:'dark'}}, getElementById:id => nodes[id],
+    document:{currentScript:version ? {src:'https://example.test/viewer.js?v=' + version} : null, documentElement:{dataset:{theme:'dark'}}, getElementById:id => nodes[id],
       addEventListener:(name, handler) => documentEvents[name] = handler},
     addEventListener:(name, handler) => events[name] = handler
   });
@@ -124,3 +124,5 @@ for (const file of fs.readdirSync(path.join(root, 'dist/student/materials'))) {
   assert(!html.includes('data.js'));
 }
 console.log('Participant order, single materials, invalid links, resizing and theme forwarding verified.');
+
+assert.equal(participantScenario('?items=m01', 'new-deployment').nodes.material.src, 'materials/m01.html?v=new-deployment');

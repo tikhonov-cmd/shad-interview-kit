@@ -1,6 +1,7 @@
 'use strict';
 const ids = new Set(['m01','m02','m03','m04','m05','m06','m07','m08']);
 let items = [], pos = 0;
+const assetVersion = new URLSearchParams(document.currentScript?.src.split('?')[1] || '').get('v');
 const frame = document.getElementById('material');
 const progress = document.getElementById('progress');
 function syncTheme() {
@@ -11,7 +12,7 @@ addEventListener('resize', syncTheme);
 document.addEventListener('shad-theme-change', syncTheme);
 function render(focus = false) {
   frame.style.height = '';
-  frame.src = 'materials/' + items[pos] + '.html';
+  frame.src = 'materials/' + items[pos] + '.html' + (assetVersion ? '?v=' + encodeURIComponent(assetVersion) : '');
   frame.title = 'Материал ' + items[pos].toUpperCase() + ' для обсуждения';
   progress.textContent = 'Материал ' + (pos + 1) + ' из ' + items.length;
   document.getElementById('material-code').textContent = items[pos].toUpperCase();
